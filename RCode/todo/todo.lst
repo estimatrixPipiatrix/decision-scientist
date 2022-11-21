@@ -1,6 +1,6 @@
 task,importance,complete
 feed hamster,10,T
-discipline pimp #1,5,F
+discipline pimp #1,5,T
 discipline pimp #2,4,T
 check nyc hot dog stand ops,7,F
 world domination,9,F

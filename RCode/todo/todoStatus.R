@@ -1,4 +1,4 @@
-todo <- read.csv("todo.dat",strings=F)
+todo <- read.csv("todo.lst",strings=F)
 currentPoints <- sum(todo$importance[which(todo$complete)])
 totalPoints   <- sum(todo$importance)
 library(ggplot2)
