@@ -11,7 +11,7 @@ stop_words.extend(["thing", "u", "https", "co", "t", "m", "one", "s", \
                    "something","good","get","yeah","really","yes", \
                    "also","much","time","could","say","even","way", \
                    "need","guy","ok","bad","oh","make","seems", \
-                   "well","fr","thanks","someone"])
+                   "well","fr","thanks","someone","tco","lot"])
 
 def sent_to_words(sentences):
     for sentence in sentences:
