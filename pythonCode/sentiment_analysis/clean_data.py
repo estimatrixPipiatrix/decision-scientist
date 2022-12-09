@@ -1,10 +1,16 @@
 import pandas as pd
 import re
+import subprocess
+
 # clean and save the amazon features and labels for
 # both the training and test data
+subprocess.Popen("./prepareData.sh",shell=True)
 
-amazonTrain = pd.read_csv('train_no_commas.txt')
-amazonTest  = pd.read_csv('test_no_commas.txt')
+amazonTrain = pd.read_csv('train_no_commas.txt', \
+                          names=['review_text'])
+amazonTest  = pd.read_csv('test_no_commas.txt',  \
+                          names=['review_text'])
+
 labelsTrain = pd.DataFrame(amazonTrain['review_text'].str[9])
 labelsTest  = pd.DataFrame(amazonTest['review_text'].str[9])
 labelsTrain = \
