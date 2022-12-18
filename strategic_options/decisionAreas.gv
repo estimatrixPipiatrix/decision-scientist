@@ -1,0 +1,15 @@
+graph G {
+
+  rankdir = "LR"  
+  node [ style = filled, fillcolor = coral, shape = record, margin = 0, penwidth = 2, fontsize=50 ]
+  a [label="area 1 | <a1> remote | <a2> in-person", fillcolor=cadetblue1 ]
+  b [label="area 2 | <b1> decision sci | <b2> data sci | <b3> alignment", fillcolor=darkorange2 ]
+  c [label="area 3 | <c1> europe | <c2> usa", fillcolor= limegreen ]
+  
+  edge [ penwidth = 5, color = black ]
+  a:<a1> -- b:<b3>
+  edge [ color = crimson ]
+  a:<a1> -- b:<b1>
+  edge [ color = blue  ]
+  a:<a2> -- c:<c2>
+}
