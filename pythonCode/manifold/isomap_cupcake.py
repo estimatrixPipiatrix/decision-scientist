@@ -7,8 +7,6 @@ import seaborn as sns; sns.set()
 from sklearn.manifold import Isomap
 from matplotlib import offsetbox
 
-from isomap_plot import *
-
 directory = './cupcakes'
 
 pics = []
@@ -22,7 +20,7 @@ for filename in os.listdir(directory):
         image = pd.Series(np.asarray(Image.open(f)).ravel())
         data = pd.concat([data,image.to_frame().T],ignore_index=True)
 
-data = data.fillna(0)
+data = data.fillna(data.mean())
 
 # have a look at the cupcake thumbnails
 #fig, ax = plt.subplots(6,10,subplot_kw={'xticks':[],'yticks':[]})
