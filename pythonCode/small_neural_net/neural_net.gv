@@ -1,0 +1,39 @@
+digraph G {
+
+    layout = dot
+    node [ style = filled, fillcolor = azure, shape = circle, 
+           margin = 0 ]
+    rankdir = LR
+    splines = curved
+
+    a0 [label=""]
+    b0 [label=""]
+    c0 [label="i"]
+    
+    a1 [label=""]
+    b1 [label="j"]
+    c1 [label=""]
+    d1 [label=""]
+
+    a2 [label=""]
+
+    a0 -> a1
+    a0 -> b1
+    a0 -> c1
+    a0 -> d1
+
+    b0 -> a1
+    b0 -> b1
+    b0 -> c1
+    b0 -> d1
+
+    c0 -> a1
+    c0 -> b1 [xlabel="w_ji"]
+    c0 -> c1
+    c0 -> d1
+
+    a1 -> a2
+    b1 -> a2 [xlabel="w_j"]
+    c1 -> a2
+    d1 -> a2
+}

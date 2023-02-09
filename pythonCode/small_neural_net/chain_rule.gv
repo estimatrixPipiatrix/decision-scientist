@@ -1,0 +1,19 @@
+digraph G {
+
+    layout = dot
+    node [ style = filled, fillcolor = azure, shape = rect]
+    splines = line
+
+    a  [label="error"]
+    b  [label="layer 2 activation"]
+    c  [label="layer 1 activations"]
+    d  [label="layer 0 inputs"]    
+    w1 [label="0 to 1 weights"]
+    w2 [label="1 to 2 weights"]
+
+    d -> c
+    w1 -> c
+    c -> b
+    w2 -> b
+    b -> a
+}
