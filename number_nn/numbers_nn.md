@@ -30,7 +30,7 @@ for i, ax in enumerate(axes.flat):
 
 
     
-![png](output_3_0.png)
+![png](number_images.png)
     
 
 
@@ -190,7 +190,7 @@ plt.ylabel('predicted label')
 
 
     
-![png](output_11_1.png)
+![png](number_confusion.png)
     
 
 
