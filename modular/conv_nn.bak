@@ -1,0 +1,232 @@
+import numpy as np
+import sys
+import matplotlib.pyplot as plt
+import seaborn as sns; sns.set()
+
+# load X_conv and y_conv
+Xconv_load   = np.load('X_conv.npz',allow_pickle=True)
+yconv_load   = np.load('y_conv.npz',allow_pickle=True)
+
+Xconv = Xconv_load['arr_0'].astype('float64')
+yconv = yconv_load['arr_0'].astype('float64')
+# to get reasonable performance on the test set, it was 
+# necessary to exclude the two inputs to the modular addition net
+# and reinstate the softmax function below
+
+# an idea to improve convergence: replace all the probabilities
+# in the last third of ytrain/test with 0s and 1s
+# ok yet another idea: don't one-hot encode anything and get rid
+# of all softmax's
+num_total = Xconv.shape[0]
+num_soft_max = int(yconv.shape[1]/3)
+for i in range(num_total):
+   max_ind = yconv[i,2*num_soft_max:3*num_soft_max].argmax()
+   yconv[i,2*num_soft_max:3*num_soft_max] = 0.0
+   yconv[i,2*num_soft_max+max_ind] = 1.0
+
+# set up the training and test samples
+percent_train = 0.5
+num_train = int(np.round(num_total*0.8))
+num_test  = num_total-num_train
+Xtrain    = Xconv[0:num_train]
+ytrain    = yconv[0:num_train]
+Xtest     = Xconv[num_train:num_train+num_test]
+ytest     = yconv[num_train:num_train+num_test]
+
+# moving window of size frame_rows x frame_cols moves over
+# every position in the image, such that the frame does not
+# move outside the image, and captures part of the image
+# for each of those positions
+def capture_frames(image,frame_rows,frame_cols):
+    image_rows = image.shape[0]
+    image_cols = image.shape[1]
+    frame_pos_horz = image_cols-frame_cols+1
+    frame_pos_vert = image_rows-frame_rows+1
+    captured_frames = np.zeros((frame_pos_horz*frame_pos_vert, \
+                               frame_rows,frame_cols))
+    for i in range(frame_pos_horz):
+        for j in range(frame_pos_vert):
+            single_frame = image[i:i+frame_rows,j:j+frame_cols]
+            captured_frames[frame_pos_vert*i+j,:,:]=single_frame
+    return captured_frames.reshape(frame_pos_horz*frame_pos_vert, \
+                                   frame_rows*frame_cols).T
+
+# define the activation functions and their derivatives
+# layer_num = 1 will return the function for layer 1 and
+# layer_num = 2 will return that for layer 2
+# IDEA: use softmax for the 3 parts of the output separately
+def activ_func(x,layer_num):
+    if (layer_num==1):
+        return np.tanh(x)
+    elif (layer_num==2):
+        num_soft_max = int(x.shape[1]/3)
+        soft_max1 = np.exp(x[0,0:num_soft_max]) \
+                /np.exp(x[0,0:num_soft_max]).sum()
+        soft_max2 = np.exp(x[0,num_soft_max:2*num_soft_max]) \
+                /np.exp(x[0,num_soft_max:2*num_soft_max]).sum()
+        soft_max3 = np.exp(x[0,2*num_soft_max:3*num_soft_max]) \
+                /np.exp(x[0,2*num_soft_max:3*num_soft_max]).sum()
+        soft_max1 = soft_max1.reshape(1,num_soft_max)
+        soft_max2 = soft_max2.reshape(1,num_soft_max)
+        soft_max3 = soft_max3.reshape(1,num_soft_max)
+        out_vec = np.concatenate((soft_max1,soft_max2),axis=1)
+        return np.concatenate((out_vec,soft_max3),axis=1)
+
+# we need to have softmax only apply to the last modulus-number
+# of elements in the layer
+def activ_deriv(x,layer_num):
+    if (layer_num==1):
+        return 1.0-np.tanh(x)**2.0
+    elif (layer_num==2):
+        soft_max = activ_func(x,2)
+        num_soft_max = int(x.shape[1]/3)
+        soft_deriv = soft_max*(1.0-soft_max).reshape(1,3*num_soft_max)
+        return soft_deriv
+
+def dirac_delta(x,y):
+    return (x==y).astype('int64')
+
+frame_rows = 5
+frame_cols = 5
+num_kernels = 18
+image_rows = Xtrain[0].shape[0]
+image_cols = Xtrain[0].shape[1]
+frame_pos_horz = image_cols-frame_cols+1
+frame_pos_vert = image_rows-frame_rows+1
+# N.B.: if the weights are initialized lying too close together,
+# gradient descent will not find many distinct kernels!
+kernels = 2.0*np.random.random((num_kernels, \
+                               frame_rows*frame_cols))-1.0
+grad_kernel = np.zeros((num_kernels,frame_rows*frame_cols))
+
+# set the number of neurons in each fully connected layer and 
+# initialize the weights
+num_input  = frame_pos_horz*frame_pos_vert
+num_hidden = int(num_input/2.0)
+num_hidden = 20
+num_output = ytrain.shape[1]
+weights_01 = 2.0*np.random.random((num_input,num_hidden))-1.0
+weights_12 = 2.0*np.random.random((num_hidden,num_output))-1.0
+
+alpha = 0.001
+max_iter = 500
+err_tol  = 0.1
+err = 1000.0
+iter = 0
+# toggle dropout on or off
+dropout = 0
+while ((iter<max_iter) & (err>err_tol)):
+    err = 0.0
+    for n in range(Xtrain.shape[0]):
+        # forward propagation convolution + pooling steps
+        image = Xtrain[n]
+        image_frames = capture_frames(image, \
+                                      frame_rows,frame_cols)
+
+        # form layer_0 pre-pooling step
+        layer_0_pre = np.zeros((num_kernels,image_frames.shape[1]))
+        for k in range(num_kernels):
+            layer_0_pre[k,:]= \
+                np.matmul(kernels[k].reshape(1,len(kernels[k])), \
+                          image_frames)
+        which_kernel = np.argmax(layer_0_pre,axis=0)
+
+        # pooling step
+        layer_0 = \
+            np.max(layer_0_pre,axis=0).reshape(1,layer_0_pre.shape[1])
+        layer_0 = activ_func(layer_0,1)
+
+        # forward propagation to the other layers
+        layer_1 = activ_func(np.matmul(layer_0,weights_01),1)
+        if (dropout == 1):
+            dropout_mask = \
+                np.random.randint(0,2,layer_1.shape)
+            layer_1 *= 2.0*dropout_mask
+        layer_2 = activ_func(np.matmul(layer_1,weights_12),2)
+
+        # backprop step for the fully connected neurons
+        delta = layer_2-ytrain[n]
+        deriv_vec2   = activ_deriv(layer_2,2)
+        deriv_diag2  = np.diag(deriv_vec2.ravel())
+        gradient_12  = \
+                np.outer(layer_1,np.matmul(delta,deriv_diag2))
+        deriv_vec1   = activ_deriv(layer_1,1)
+        deriv_diag1  = np.diag(deriv_vec1.ravel())
+        if (dropout==1):
+            dropout_diag = np.diag(dropout_mask.ravel())
+            deriv_diag1 *= dropout_diag
+        omega = np.matmul(weights_12.T,deriv_diag1)
+        omega = np.matmul(deriv_diag2,omega)
+        delta_omega = np.matmul(delta,omega)
+        gradient_01 = np.outer(layer_0,delta_omega)
+
+        weights_12 -= alpha*gradient_12
+        weights_01 -= alpha*gradient_01
+
+        # backprop step for the kernel corrections
+        grad_kernel_indices = \
+            np.indices((grad_kernel.shape[0],grad_kernel.shape[1]))
+        for k in range(num_kernels):
+            mask = (which_kernel==k).astype('int64')
+            image_frames_masked = image_frames*mask
+            deriv_vec0   = activ_deriv(layer_0,1)
+            deriv_diag0  = np.diag(deriv_vec0.ravel())
+            intermed_0 = np.matmul(deriv_diag0,image_frames_masked.T)
+            intermed_1 = np.matmul(weights_01.T,intermed_0)
+            intermed_2 = np.matmul(deriv_diag1,intermed_1)
+            intermed_3 = np.matmul(weights_12.T,intermed_2)
+            intermed_4 = np.matmul(deriv_diag2,intermed_3)
+            grad_kernel[k] = np.matmul(delta,intermed_4)
+        kernels -= alpha*grad_kernel
+
+        err += np.sum(delta**2.0)
+    err /= Xtrain.shape[0]
+    print(iter,err)
+    iter += 1
+
+if (iter<max_iter):
+    print("converged at iteration: ",iter-1)
+    print("average error: ",err)
+else:
+    print("failed to converge")
+
+err = 0.0
+num_correct = 0
+for n in range(Xtest.shape[0]):
+    # forward propagation convolution + pooling steps
+    image = Xtest[n].reshape(image_rows,image_cols)
+    image_frames = capture_frames(image, \
+                                  frame_rows,frame_cols)
+
+    # form layer_0 pre-pooling step
+    layer_0_pre = np.zeros((num_kernels,image_frames.shape[1]))
+    for k in range(num_kernels):
+        layer_0_pre[k,:]= \
+            np.matmul(kernels[k].reshape(1,len(kernels[k])), \
+                      image_frames)
+    which_kernel = np.argmax(layer_0_pre,axis=0)
+
+    # pooling step
+    layer_0 = \
+        np.max(layer_0_pre,axis=0).reshape(1,layer_0_pre.shape[1])
+
+    # forward propagation to the other layers
+    layer_1 = activ_func(np.matmul(layer_0,weights_01),1)
+    layer_2 = activ_func(np.matmul(layer_1,weights_12),2)
+
+    delta = layer_2.ravel()-ytest[n]
+    #print(layer_2.ravel())
+    #print(ytest[n])
+    #print('------------')
+    err += np.sum(delta**2.0)
+err /= Xtest.shape[0]
+print("average test set error:",err)
+
+# save the kernels and weights in csv format
+import pandas as pd
+kernels = pd.DataFrame(kernels)
+weights_01 = pd.DataFrame(weights_01)
+weights_12 = pd.DataFrame(weights_12)
+kernels.to_csv('kernels.csv',index=False)
+weights_01.to_csv('weights_01.csv',index=False)
+weights_12.to_csv('weights_12.csv',index=False)

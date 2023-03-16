@@ -1,0 +1,60 @@
+import numpy as np
+import sys
+import pickle
+
+# this program runs the modular addition net from learn_bin_op.py
+# and saves the neuron activations along with the input+output
+# to be learned later by a conv net (as if the activations were
+# images, and with the goal to predict input+output
+
+with open("weights.pkl", "rb") as f:
+    weights_list = pickle.load(f)
+with open("Xtest.pkl", "rb") as f:
+    Xtest = pickle.load(f)
+with open("ytest.pkl", "rb") as f:
+    ytest = pickle.load(f)
+
+num_weights = len(weights_list)
+num_input   = weights_list[0].shape[0]
+num_output  = weights_list[num_weights-1].shape[1]
+num_hidden  = weights_list[0].shape[1]
+num_layers  = num_weights+1
+
+layers_list = list()
+for i in range(num_weights):
+    layer = np.zeros((1,weights_list[i].shape[0]))
+    layers_list.append(layer)
+layer = np.zeros((1,num_output))
+layers_list.append(layer)
+
+def activ_func(x,layer_type):
+    if (layer_type==1):
+        return np.tanh(x)
+    elif (layer_type==2):
+        return np.exp(x)/np.exp(x).sum()
+
+activ_mat  = np.zeros((num_hidden,num_hidden))
+X_conv     = np.zeros((Xtest.shape[0],num_hidden,num_hidden))
+y_conv     = np.zeros((Xtest.shape[0],num_input+num_output)) 
+for i in range(Xtest.shape[0]):
+    layers_list[0] = Xtest[i]
+    for j in range(1,num_layers-1):
+        layers_list[j] = activ_func(np.matmul(layers_list[j-1], \
+                                    weights_list[j-1]),1)
+    layers_list[num_layers-1] = \
+            activ_func(np.matmul(layers_list[num_layers-2], \
+                       weights_list[num_layers-2]),2)
+
+    y_conv[i,0:num_input] = Xtest[i]
+    y_conv[i,num_input:num_input+num_output]= \
+            layers_list[num_layers-1]
+
+    for j in range(num_hidden):
+        activ_mat[j] = layers_list[j+1]
+    X_conv[i] = activ_mat
+
+# save the weights and the test data
+X_conv = np.asanyarray(X_conv,dtype=object)
+y_conv = np.asanyarray(y_conv,dtype=object)
+np.savez("X_conv",X_conv)
+np.savez("y_conv",y_conv)
