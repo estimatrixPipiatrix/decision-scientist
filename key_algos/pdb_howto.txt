@@ -1,0 +1,21 @@
+Import the pdb module:
+
+python
+
+import pdb
+
+    Set a breakpoint in your code by adding the following line where you want the debugger to stop:
+
+python
+
+pdb.set_trace()
+
+    Run your code in IPython, and when the execution reaches the pdb.set_trace() line, the debugger will be activated.
+
+    The debugger prompt will appear, and you can use various commands to navigate through the code. Here are some commonly used commands:
+        n: Execute the next line of code.
+        s: Step into a function call.
+        c: Continue execution until the next breakpoint or the end of the program.
+        l: Show the current code context.
+        p <variable>: Print the value of a variable.
+        q: Quit the debugger.
