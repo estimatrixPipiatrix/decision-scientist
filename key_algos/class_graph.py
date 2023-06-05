@@ -1,3 +1,5 @@
+# note: This class is under construction and not yet operational!
+
 import graphviz
 from graphviz import Digraph
 import sys
