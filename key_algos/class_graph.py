@@ -1,7 +1,6 @@
-# note: This class is under construction and not yet operational!
-
 import graphviz
 from graphviz import Digraph
+from class_queue import queue
 import sys
 
 class vertex:
@@ -15,56 +14,71 @@ class vertex:
         self.edges.append(vert)
         vert.add_adjacent_vertex(self)
 
-    def build_graph(self, dot, visited, done_edges):
-        curr = self
-        A = str(curr)
+def build_graph(vertex, dot, visited):
+    curr = vertex
+    A = str(curr)
+    if visited=={}:
         dot.node(A,curr.value)
-        visited.update({self:True})
-        for vert in curr.edges:
+    visited.update({curr:True})
+    copy_visited = visited.copy()
+    for vert in curr.edges:
+        if visited.get(vert)!=True:
+            visited.update({vert:True})
             B = str(vert)
             dot.node(B,vert.value)
-            if done_edges.get(A)!=B and \
-               done_edges.get(B)!=A:
-                dot.edge(A,B,arrowhead="none")
-                done_edges.update({A:B})
-                done_edges.update({B:A})
-                if visited.get(vert)!=True:
-                    vert.build_graph(dot,visited,done_edges)
+            dot.edge(A,B,arrowhead="none")
+            build_graph(vert,dot,copy_visited)
 
-    def print_graph(self,visited):
-        visited.update({self:True})
-        print(self.value)
-        for vert in self.edges:
-            if visited.get(vert)!=True:
-                vert.print_graph(visited)
- 
-    def depth_first_search(self,val,visited):
-        if self.value==val:
-            return self
-        visited.update({self:True})
-        print(self.value,'self')
-        for vert in self.edges:
-            if visited.get(vert)!=True:
-                print(vert.value,'vert')
-                return vert.depth_first_search(val,visited)
+def print_graph(vertex,visited):
+    visited.update({vertex:True})
+    print(vertex.value,len(vertex.edges))
+    for vert in vertex.edges:
+        if visited.get(vert)!=True:
+            print_graph(vert,visited)
+
+def depth_first_search(vertex,val,visited):
+    if vertex.value==val:
+        return vertex
+    visited.update({vertex:True})
+    for vert in vertex.edges:
+        if visited.get(vert)!=True:
+            result = depth_first_search(vert,val,visited)
+            if result!=None:
+                if result.value==val:
+                    return result
+    return None
+
+def breadth_first_search(vertex,val,visited,q = queue()):
+    visited.update({vertex:True})
+    q.enqueue(vertex)
+    while q.first!=None:
+        vert = q.dequeue()
+        if vert.value==val:
+            return vert
+        for v in vert.edges:
+            if visited.get(v)!=True:
+                visited.update({v:True})
+                q.enqueue(v)
+
+def display_graph(vertex):
+    start = vertex
+    if start.edges==[]:
+        print('vertex has no edges!')
         return
-
-    def display_graph(self):
-        start = self
-        if start.edges==[]:
-            print('vertex has no edges!')
-            return
-        dot = Digraph()
-        self.build_graph(dot, {}, {})
-        dot.render('graph', format='png', view=True)    
+    dot = Digraph(strict=True)
+    build_graph(start, dot, {})
+    dot.render('Digraph', format='png', view=True)
 
 from name_generator import name_gen
 import string
 import random
 import numpy as np
 
+random.seed(1)
+np.random.seed(1)
+
 trie = name_gen()
-num_names = 10
+num_names = 6
 names = []
 for i in range(num_names):
    letter = random.choice(string.ascii_letters).lower()
@@ -86,3 +100,9 @@ for v1 in vertices:
         if (v1!=v2 and linked==1 and count<=5):
             v1.add_adjacent_vertex(v2)
         count += 1
+
+for v1 in vertices:
+    if v1.edges == []:
+        num_vert = len(vertices)
+        rand_vert_num = np.random.randint(num_vert)
+        v1.add_adjacent_vertex(vertices[rand_vert_num])

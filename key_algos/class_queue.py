@@ -20,12 +20,14 @@ class queue:
         n.next = tmp
 
     def dequeue(self):
+        value = self.first.data_val
         if self.last==self.first:
             self.first = None
             self.last  = None
         else:
             self.first.prev.next = None
             self.first = self.first.prev
+        return value
 
     def print(self):
         if self.last==None:
@@ -40,10 +42,11 @@ class queue:
             print(line)
 
 # example
-q = queue()
-q.enqueue('early guy')
-q.enqueue('normal guy')
-q.enqueue('late guy')
-q.enqueue('super late guy')
-#q.dequeue()
+#q = queue()
+#q.enqueue('early guy')
+#q.enqueue('normal guy')
+#q.enqueue('late guy')
+#q.enqueue('super late guy')
+#q.print()
+#print(q.dequeue())
 #q.print()
