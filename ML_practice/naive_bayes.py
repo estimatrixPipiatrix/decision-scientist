@@ -81,6 +81,12 @@ def pred_naive_bayes(X,model_probs):
 
 model_probs = fit_naive_bayes(Xtrain,ytrain)
 pred = pred_naive_bayes(Xtest,model_probs)
+
+pred_pd = pd.DataFrame(pred)
+pred_pd.to_csv("bayes_pred.csv",index=None)
+ytest_pd = pd.DataFrame(ytest)
+ytest_pd.to_csv("bayes_ytest.csv",index=None)
+
 pred_class = pred.round().astype('int')
 accuracy = (pred_class==ytest).sum()/len(ytest)
 base_acc = (ytest==1).sum()/len(ytest)
