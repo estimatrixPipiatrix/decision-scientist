@@ -1,0 +1,53 @@
+digraph {
+	rankdir=LR
+	node [fillcolor=white shape=rectangle style=filled]
+	subgraph cluster_sources {
+		rank=same style=filled
+		label=sources shape=box
+		source_A [label="" shape=circle]
+		source_B [label="" shape=circle]
+	}
+	subgraph cluster_stocks {
+		rank=same style=filled
+		label=stocks shape=box
+		stock_A [label="biofilm mass"]
+		stock_B [label=substrate]
+	}
+	subgraph cluster_sinks {
+		rank=same style=filled
+		label=sinks shape=box
+		sink_A [label="" shape=circle]
+		sink_B [label="" shape=circle]
+	}
+	subgraph cluster_valves_left {
+		rank=same
+		valve_A1 [label="" fillcolor=black shape=point width=0.1]
+		valve_B1 [label="" fillcolor=black shape=point width=0.1]
+	}
+	subgraph cluster_valves_right {
+		rank=same
+		valve_A2 [label="" fillcolor=black shape=point width=0.1]
+		valve_B2 [label="" fillcolor=black shape=point width=0.1]
+	}
+	subgraph effects {
+		rank=same
+		gradient [label="pressure gradient" shape=none]
+		velocity [label="fluid velocity" shape=none]
+		sloughing [label=sloughing shape=none]
+	}
+	source_A -> valve_A1 [arrowhead=none color=coral penwidth=5]
+	valve_A1 -> stock_A [color=coral penwidth=5]
+	stock_A -> valve_A2 [arrowhead=none color=coral penwidth=5]
+	valve_A2 -> sink_A [color=coral penwidth=5]
+	source_B -> valve_B1 [arrowhead=none color=red penwidth=5]
+	valve_B1 -> stock_B [color=red penwidth=5]
+	stock_B -> valve_B2 [arrowhead=none color=red penwidth=5]
+	valve_B2 -> sink_B [color=red penwidth=5]
+	stock_B -> valve_A1
+	sloughing -> valve_A2
+	velocity -> sloughing
+	velocity -> valve_B1
+	gradient -> velocity
+	stock_A -> valve_A1 [constraint=false]
+	stock_A -> valve_B2 [constraint=false]
+}

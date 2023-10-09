@@ -1,0 +1,12 @@
+\beamer@sectionintoc {1}{Decision Intelligence}{2}{0}{1}
+\beamer@subsectionintoc {1}{1}{Columns}{2}{0}{1}
+\beamer@subsectionintoc {1}{2}{Columns}{3}{0}{1}
+\beamer@subsectionintoc {1}{3}{Paragraphs and Lists}{4}{0}{1}
+\beamer@subsectionintoc {1}{4}{Causal decision diagram}{7}{0}{1}
+\beamer@subsectionintoc {1}{5}{System dynamics of biofilm detachment}{8}{0}{1}
+\beamer@subsectionintoc {1}{6}{System vector fields}{9}{0}{1}
+\beamer@sectionintoc {2}{Table and Figure Examples}{10}{0}{2}
+\beamer@subsectionintoc {2}{1}{Table}{10}{0}{2}
+\beamer@subsectionintoc {2}{2}{Figure}{11}{0}{2}
+\beamer@subsectionintoc {2}{3}{Figure}{12}{0}{2}
+\beamer@subsectionintoc {2}{4}{Conclusion}{13}{0}{2}

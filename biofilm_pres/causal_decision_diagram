@@ -1,0 +1,50 @@
+digraph {
+	rankdir=LR
+	node [fillcolor=white shape=rectangle style=filled]
+	subgraph cluster_actions {
+		rank=same style=filled
+		label=levers shape=box
+		pressure [label="pressure differential"]
+		filter_design [label="filter design"]
+		maintenance [label="optimize maintenance"]
+		chemical [label="chemical treatment"]
+	}
+	subgraph cluster_constraints {
+		rank=same style=filled
+		label=externals shape=box
+		budget [label="budget constraints"]
+		EPA [label="EPA requirements"]
+	}
+	subgraph cluster_intermed {
+		rank=same style=filled
+		label=intermediates shape=box
+		operation [label="operation cost"]
+		flushing [label="flushing rate"]
+		cleaning [label="cleaning time"]
+		parts [label="machine parts"]
+		longevity [label="system longevity"]
+	}
+	subgraph cluster_outcomes {
+		rank=same style=filled
+		label=outcomes shape=box
+		cost [label="total cost"]
+		flow_rate [label="volumetric flow rate"]
+	}
+	pressure -> flushing [label=SD color=blue]
+	pressure -> operation
+	cleaning -> operation
+	chemical -> cleaning
+	EPA -> cleaning [color=red]
+	flushing -> flow_rate
+	parts -> operation
+	operation -> cost
+	filter_design -> parts
+	maintenance -> parts
+	chemical -> flushing
+	parts -> longevity [label=ML color=blue]
+	longevity -> operation
+	pressure -> longevity
+	budget -> flushing [color=red]
+	budget -> cleaning [color=red]
+	budget -> parts [color=red]
+}
