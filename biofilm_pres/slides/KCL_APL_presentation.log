@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.6.4)  8 OCT 2023 18:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.6.4)  14 OCT 2023 11:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -993,66 +993,78 @@ LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <6> not available
 [6
 
 ]
-<causal_decision_diagram.png, id=237, 1261.71375pt x 532.99126pt>
+<causal_decision_diagram.png, id=241, 1265.72874pt x 532.99126pt>
 File: causal_decision_diagram.png Graphic file (type png)
 <use causal_decision_diagram.png>
 Package pdftex.def Info: causal_decision_diagram.png  used on input line 283.
-(pdftex.def)             Requested size: 342.2953pt x 144.59271pt.
+(pdftex.def)             Requested size: 342.2953pt x 144.13728pt.
  [7
 
  <./causal_decision_diagram.png>]
-<system_dynamics_diagram.png, id=267, 629.35126pt x 400.49625pt>
-File: system_dynamics_diagram.png Graphic file (type png)
-<use system_dynamics_diagram.png>
-Package pdftex.def Info: system_dynamics_diagram.png  used on input line 304.
-(pdftex.def)             Requested size: 239.60567pt x 152.47737pt.
+<machine_parts.jpg, id=271, 1332.98pt x 223.83624pt>
+File: machine_parts.jpg Graphic file (type jpg)
+<use machine_parts.jpg>
+Package pdftex.def Info: machine_parts.jpg  used on input line 298.
+(pdftex.def)             Requested size: 342.2953pt x 57.47879pt.
+<projected_losses.jpg, id=272, 1086.0575pt x 441.65pt>
+File: projected_losses.jpg Graphic file (type jpg)
+<use projected_losses.jpg>
+Package pdftex.def Info: projected_losses.jpg  used on input line 298.
+(pdftex.def)             Requested size: 342.2953pt x 139.19461pt.
  [8
 
+ <./machine_parts.jpg> <./projected_losses.jpg>]
+<system_dynamics_diagram.png, id=298, 629.35126pt x 400.49625pt>
+File: system_dynamics_diagram.png Graphic file (type png)
+<use system_dynamics_diagram.png>
+Package pdftex.def Info: system_dynamics_diagram.png  used on input line 319.
+(pdftex.def)             Requested size: 239.60567pt x 152.47737pt.
+ [9
+
  <./system_dynamics_diagram.png>]
-<system_vector_fields.png, id=297, 885.3075pt x 701.7417pt>
+<system_vector_fields.png, id=328, 885.3075pt x 701.7417pt>
 File: system_vector_fields.png Graphic file (type png)
 <use system_vector_fields.png>
-Package pdftex.def Info: system_vector_fields.png  used on input line 314.
+Package pdftex.def Info: system_vector_fields.png  used on input line 329.
 (pdftex.def)             Requested size: 273.83728pt x 217.05583pt.
+ [10
 
-[9
-
- <./system_vector_fields.png>] [10
+ <./system_vector_fields.png>] [11
 
 ]
-<decision_tree_graphviz.png, id=348, 2289.55376pt x 579.16376pt>
+<decision_tree_graphviz.png, id=380, 2289.55376pt x 579.16376pt>
 File: decision_tree_graphviz.png Graphic file (type png)
 <use decision_tree_graphviz.png>
-Package pdftex.def Info: decision_tree_graphviz.png  used on input line 348.
+Package pdftex.def Info: decision_tree_graphviz.png  used on input line 363.
 (pdftex.def)             Requested size: 342.2953pt x 86.57918pt.
- [11
+ [12
 
  <./decision_tree_graphviz.png>]
-<confusion_matrices.png, id=375, 871.5762pt x 346.896pt>
+<confusion_matrices.png, id=406, 871.5762pt x 346.896pt>
 File: confusion_matrices.png Graphic file (type png)
 <use confusion_matrices.png>
-Package pdftex.def Info: confusion_matrices.png  used on input line 363.
+Package pdftex.def Info: confusion_matrices.png  used on input line 378.
 (pdftex.def)             Requested size: 325.17949pt x 129.42403pt.
 LaTeX Font Info:    Font shape `OT1/opensans-TLF/m/n' will be
-(Font)              scaled to size 10.0pt on input line 363.
+(Font)              scaled to size 10.0pt on input line 378.
+ [13
 
-[12
-
- <./confusion_matrices.png>] [13
+ <./confusion_matrices.png>]
+[14
 
 ]
 LaTeX Font Info:    Font shape `OT1/opensans-TLF/m/n' will be
-(Font)              scaled to size 9.0pt on input line 398.
+(Font)              scaled to size 9.0pt on input line 413.
 LaTeX Font Info:    Font shape `OT1/opensans-TLF/m/it' will be
-(Font)              scaled to size 9.0pt on input line 398.
- [14
+(Font)              scaled to size 9.0pt on input line 413.
+ [15
 
  </usr/share/texlive/texmf-dist/tex/latex/beamer/beamericonarticle.pdf>]
 LaTeX Font Info:    Font shape `OT1/opensans-TLF/m/n' will be
-(Font)              scaled to size 24.88pt on input line 412.
+(Font)              scaled to size 24.88pt on input line 427.
 LaTeX Font Info:    Font shape `OT1/opensans-TLF/m/n' will be
-(Font)              scaled to size 17.28pt on input line 412.
- [15
+(Font)              scaled to size 17.28pt on input line 427.
+ [16
 
 ]
 \tf@nav=\write6
@@ -1066,13 +1078,13 @@ LaTeX Font Info:    Font shape `OT1/opensans-TLF/m/n' will be
 
  (./KCL_APL_presentation.aux)
 Package rerunfilecheck Info: File `KCL_APL_presentation.out' has not changed.
-(rerunfilecheck)             Checksum: FF58DE9A40608072B062EE2AC4E2671A;1640.
+(rerunfilecheck)             Checksum: 8055278FED33F450E247CF71C8E07E64;1820.
  ) 
 Here is how much of TeX's memory you used:
- 23932 strings out of 480171
- 470751 string characters out of 5894490
+ 23955 strings out of 480171
+ 471159 string characters out of 5894490
  703151 words of memory out of 5000000
- 41326 multiletter control sequences out of 15000+600000
+ 41343 multiletter control sequences out of 15000+600000
  485280 words of font info for 74 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
  128i,14n,122p,462b,1005s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1086,10 +1098,10 @@ nts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/public/amsfonts/cm/cmss10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
 blic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helv
 etic/uhvro8a.pfb>
-Output written on KCL_APL_presentation.pdf (15 pages, 666775 bytes).
+Output written on KCL_APL_presentation.pdf (16 pages, 847651 bytes).
 PDF statistics:
- 532 PDF objects out of 1000 (max. 8388607)
- 471 compressed objects within 5 object streams
- 45 named destinations out of 1000 (max. 500000)
- 206 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 563 PDF objects out of 1000 (max. 8388607)
+ 499 compressed objects within 5 object streams
+ 48 named destinations out of 1000 (max. 500000)
+ 224 words of extra memory for PDF output out of 10000 (max. 10000000)
 

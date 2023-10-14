@@ -1,0 +1,18 @@
+part_data_2.csv is intended for monte carlo simulations of financial
+loss on losing each type of machine part in the next fiscal year
+
+prob_fail is gotten from lapace's rule of succession for that part.
+e.g., part A was observed to fail in 2 years out of 10 observed,
+so m = 2, n = 10, and prob_fail = (1+m)/(2+n) = 3/11 = 0.27
+
+loss_low and loss_high establish the endpoints of a 90% credible
+interval for the losses that would be incurred in dollar amounts;
+we will use lognormal for monte carlo sims to model the possibility
+of occasional catatrophic losses
+
+loss_low and loss_high can be gotten from taking 5 observations using
+the rule of 5: the median is 90% likely to lie between the lowest and
+the highest of these values
+
+we want to compare the average expected losses in a year from using
+parts A and B together versus using parts C and D together

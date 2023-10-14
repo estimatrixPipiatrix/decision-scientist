@@ -39,7 +39,7 @@ digraph {
 	parts -> operation
 	operation -> cost
 	filter_design -> parts
-	maintenance -> parts
+	maintenance -> parts [label=MC color=blue]
 	chemical -> flushing
 	parts -> longevity [label=ML color=blue]
 	longevity -> operation

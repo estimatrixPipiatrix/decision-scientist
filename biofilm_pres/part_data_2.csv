@@ -1,0 +1,5 @@
+part_type,prob_fail,loss_low,loss_high
+A,0.27,100,500
+B,0.2,200,800
+C,0.1,50,600
+D,0.4,300,500

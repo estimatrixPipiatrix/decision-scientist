@@ -24,38 +24,42 @@
 \headcommand {\slideentry {1}{4}{1}{7/7}{Causal decision diagram}{0}}
 \headcommand {\beamer@framepages {7}{7}}
 \headcommand {\beamer@subsectionpages {7}{7}}
-\headcommand {\beamer@subsectionentry {0}{1}{5}{8}{System dynamics of biofilm detachment}}
-\headcommand {\slideentry {1}{5}{1}{8/8}{System dynamics of biofilm detachment}{0}}
+\headcommand {\beamer@subsectionentry {0}{1}{5}{8}{Monte Carlo simulations}}
+\headcommand {\slideentry {1}{5}{1}{8/8}{Monte Carlo simulations}{0}}
 \headcommand {\beamer@framepages {8}{8}}
 \headcommand {\beamer@subsectionpages {8}{8}}
-\headcommand {\beamer@subsectionentry {0}{1}{6}{9}{System vector fields}}
-\headcommand {\slideentry {1}{6}{1}{9/9}{System vector fields}{0}}
+\headcommand {\beamer@subsectionentry {0}{1}{6}{9}{System dynamics of biofilm detachment}}
+\headcommand {\slideentry {1}{6}{1}{9/9}{System dynamics of biofilm detachment}{0}}
 \headcommand {\beamer@framepages {9}{9}}
-\headcommand {\beamer@sectionpages {2}{9}}
 \headcommand {\beamer@subsectionpages {9}{9}}
-\headcommand {\sectionentry {2}{Table and Figure Examples}{10}{Table and Figure Examples}{0}}
-\headcommand {\beamer@subsectionpages {10}{9}}
-\headcommand {\beamer@subsectionentry {0}{2}{1}{10}{Table}}
-\headcommand {\slideentry {2}{1}{1}{10/10}{Table}{0}}
+\headcommand {\beamer@subsectionentry {0}{1}{7}{10}{System vector fields}}
+\headcommand {\slideentry {1}{7}{1}{10/10}{System vector fields}{0}}
 \headcommand {\beamer@framepages {10}{10}}
+\headcommand {\beamer@sectionpages {2}{10}}
 \headcommand {\beamer@subsectionpages {10}{10}}
-\headcommand {\beamer@subsectionentry {0}{2}{2}{11}{Figure}}
-\headcommand {\slideentry {2}{2}{1}{11/11}{Figure}{0}}
+\headcommand {\sectionentry {2}{Table and Figure Examples}{11}{Table and Figure Examples}{0}}
+\headcommand {\beamer@subsectionpages {11}{10}}
+\headcommand {\beamer@subsectionentry {0}{2}{1}{11}{Table}}
+\headcommand {\slideentry {2}{1}{1}{11/11}{Table}{0}}
 \headcommand {\beamer@framepages {11}{11}}
 \headcommand {\beamer@subsectionpages {11}{11}}
-\headcommand {\beamer@subsectionentry {0}{2}{3}{12}{Figure}}
-\headcommand {\slideentry {2}{3}{1}{12/12}{Figure}{0}}
+\headcommand {\beamer@subsectionentry {0}{2}{2}{12}{Figure}}
+\headcommand {\slideentry {2}{2}{1}{12/12}{Figure}{0}}
 \headcommand {\beamer@framepages {12}{12}}
 \headcommand {\beamer@subsectionpages {12}{12}}
-\headcommand {\beamer@subsectionentry {0}{2}{4}{13}{Conclusion}}
-\headcommand {\slideentry {2}{4}{1}{13/13}{Conclusion}{0}}
+\headcommand {\beamer@subsectionentry {0}{2}{3}{13}{Figure}}
+\headcommand {\slideentry {2}{3}{1}{13/13}{Figure}{0}}
 \headcommand {\beamer@framepages {13}{13}}
-\headcommand {\slideentry {2}{4}{2}{14/14}{Conclusion}{0}}
+\headcommand {\beamer@subsectionpages {13}{13}}
+\headcommand {\beamer@subsectionentry {0}{2}{4}{14}{Conclusion}}
+\headcommand {\slideentry {2}{4}{1}{14/14}{Conclusion}{0}}
 \headcommand {\beamer@framepages {14}{14}}
-\headcommand {\slideentry {2}{4}{3}{15/15}{Conclusion}{0}}
+\headcommand {\slideentry {2}{4}{2}{15/15}{Conclusion}{0}}
 \headcommand {\beamer@framepages {15}{15}}
-\headcommand {\beamer@partpages {1}{15}}
-\headcommand {\beamer@subsectionpages {13}{15}}
-\headcommand {\beamer@sectionpages {10}{15}}
-\headcommand {\beamer@documentpages {15}}
-\headcommand {\gdef \inserttotalframenumber {15}}
+\headcommand {\slideentry {2}{4}{3}{16/16}{Conclusion}{0}}
+\headcommand {\beamer@framepages {16}{16}}
+\headcommand {\beamer@partpages {1}{16}}
+\headcommand {\beamer@subsectionpages {14}{16}}
+\headcommand {\beamer@sectionpages {11}{16}}
+\headcommand {\beamer@documentpages {16}}
+\headcommand {\gdef \inserttotalframenumber {16}}
