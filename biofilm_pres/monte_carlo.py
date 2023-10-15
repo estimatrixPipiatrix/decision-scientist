@@ -20,9 +20,20 @@ for part in df_parts.index:
         np.random.lognormal(df_parts.loc[part,'mu'], \
                             df_parts.loc[part,'sigma'], \
                             num_runs)
-    df_parts.loc[part,'avg_loss'] = df_losses[part].mean()
 
-print('avg expected yearly loss from combining parts A and B:')
-print(df_parts.loc['A','avg_loss']+df_parts.loc['B','avg_loss'])
-print('avg expected yearly loss from combining parts C and D:')
-print(df_parts.loc['C','avg_loss']+df_parts.loc['D','avg_loss'])
+df_losses_copy = df_losses.copy()
+
+df_losses_copy['A_plus_B'] = \
+    df_parts.loc['A','prob_fail']*df_losses['A'] + \
+    df_parts.loc['B','prob_fail']*df_losses['B']
+df_losses_copy['C_plus_D'] = \
+    df_parts.loc['C','prob_fail']*df_losses['C'] + \
+    df_parts.loc['D','prob_fail']*df_losses['D']
+
+AEL_AB = df_losses_copy['A_plus_B'].mean()
+AEL_CD = df_losses_copy['C_plus_D'].mean()
+
+print('avg expected yearly loss from A plus B:', \
+    np.round(AEL_AB,2))
+print('avg expected yearly loss from C plus D:', \
+    np.round(AEL_CD,2))
